@@ -1,0 +1,309 @@
+/* =====================================================
+   ШРИФТ
+   ===================================================== */
+@font-face{
+    font-family: 'Unifont';
+    src: url('../fonts/unifont-16.0.04\ \(1\).ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* =====================================================
+   БАЗА
+   ===================================================== */
+*, *::before, *::after{
+    font-family: "Unifont", monospace;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body{
+    /* Вместо фиксированных 1535px на панели — ограничиваем всю страницу */
+    max-width: 1535px;
+    margin: 0 auto;
+    padding: 12px clamp(8px, 2vw, 24px); /* отступы по бокам, сжимаются на телефоне */
+    overflow-x: hidden;                  /* страховка от горизонтального скролла */
+    line-height: 1.45;
+    color: #111;
+    background: #fff;
+}
+
+
+
+hr{
+    border: none;
+    border-top: 1px solid #999;
+    margin: 12px 0;
+}
+
+
+
+/* =====================================================
+   ПАНЕЛЬ НАВИГАЦИИ
+   ===================================================== */
+.panel{
+    background-color: rgb(0, 255, 119);
+    width: 100%;            /* было 1535px — теперь растягивается по body */
+    min-height: 50px;
+    height: auto;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    transition: background-color .2s;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;        /* разрешаем перенос, если не влезает */
+    text-align: center;
+    width: 100%;
+    padding: 6px 8px;
+    gap: 4px;
+}
+
+/* В HTML есть пустой <p></p> — прячем, чтобы не было лишних отступов/полос */
+.buttons p:empty{
+    display: none;
+}
+
+.buttons p{
+    padding: 2px 6px;
+}
+
+.link{
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 2px;
+}
+
+.panel:hover{ background-color: rgb(26, 255, 0); }
+
+/* =====================================================
+   КНОПКИ (.tap — зелёная, .tap2 — красная)
+   ===================================================== */
+.tap,
+.tap2{
+    border: none;
+    border-radius: 25px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tap{  background-color: rgb(0, 255, 119); }
+.tap2{ background-color: red; color: #fff; }
+
+.tap:hover{  background-color: rgb(26, 255, 0); }
+.tap2:hover{ background-color: rgb(255, 77, 0); }
+
+/* =====================================================
+   ПОЛЯ ВВОДА
+   ===================================================== */
+.write{
+    border-radius: 25px;
+    border: 1px solid #333;
+    height: 32px;
+    padding: 0 12px;
+    width: 100%;
+    max-width: 320px;
+    font-size: 16px;        /* <16px — iOS зумит страницу при фокусе */
+    outline: none;
+}
+.write:focus{
+    border-color: rgb(0, 200, 90);
+    box-shadow: 0 0 0 2px rgba(0,255,119,.35);
+}
+
+textarea{
+    border-radius: 10px;
+    border: 1px solid #333;
+    width: 100%;
+    max-width: 360px;
+    padding: 8px 10px;
+    font-size: 16px;
+    resize: vertical;
+    outline: none;
+}
+textarea:focus{
+    border-color: rgb(0, 200, 90);
+    box-shadow: 0 0 0 2px rgba(0,255,119,.35);
+}
+
+/* Радио и чекбоксы — крупнее и с отступами (в HTML они без <label>) */
+input[type="radio"],
+input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+    accent-color: rgb(0, 200, 90);
+    vertical-align: middle;
+    margin: 0 6px 0 0;
+    cursor: pointer;
+}
+/* немного воздуха между группами radio / checkbox и текстом */
+input[type="radio"] + *,
+input[type="checkbox"] + *{ vertical-align: middle; }
+
+/* =====================================================
+   БЛОКИ КОДА "Hello World"
+   ===================================================== */
+.prog{
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    min-height: 60px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background-color: grey;
+    color: white;
+    padding: 10px 12px;
+    overflow-x: auto;          /* длинные строки не ломают вёрстку */
+    font-size: 14px;
+}
+
+.prog p{
+    white-space: pre-wrap;     /* сохраняет отступы в коде */
+    word-break: break-word;
+}
+
+/* =====================================================
+   ПОДВАЛ
+   ===================================================== */
+.podval{
+    background-color: rgb(70, 70, 70);
+    color: white;
+    padding: 16px 14px;
+    border-radius: 12px;
+    margin: 12px 0;
+}
+.podval h1{ margin-bottom: 6px; }
+
+
+/* =====================================================
+   АДАПТИВ
+   ===================================================== */
+
+/* ---------- Планшеты / небольшие ноутбуки ---------- */
+@media (max-width: 1024px){
+    .write{ max-width: 100%; }
+    textarea{ max-width: 100%; }
+    .prog{ max-width: 100%; }
+}
+
+/* ---------- Телефоны ---------- */
+@media (max-width: 640px){
+
+    body{
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    /* Заголовок сайта по центру, чтобы не «прилипал» к краю */
+    h1#Home,
+    h1#Home + p{
+        text-align: center;
+    }
+
+    /* --- Меню: столбик, крупные зоны нажатия --- */
+    .panel{
+        border-radius: 16px;
+        margin: 10px 0;
+    }
+    .buttons{
+        flex-direction: column;
+        gap: 0;
+        padding: 4px 0;
+    }
+    .buttons p{
+        width: 100%;
+        padding: 0;
+    }
+    /* разделитель между пунктами — border-top (а не bottom),
+       чтобы после скрытого пустого <p> не оставалось полоски */
+    .buttons p:not(:empty) + p:not(:empty){
+        border-top: 1px solid rgba(0,0,0,.15);
+    }
+    .link{
+        display: block;
+        width: 100%;
+        padding: 12px 8px;   /* удобно попадать пальцем */
+        font-size: 16px;
+    }
+
+    /* --- Кнопки на всю ширину, высота 44px (рекомендация Apple/Google) --- */
+    .tap,
+    .tap2{
+        width: 100%;
+        height: 44px;
+        font-size: 16px;
+        border-radius: 22px;
+    }
+    /* в форме с textarea кнопка «Очистить» идёт сразу под textarea */
+    form > textarea + .tap{
+        margin-top: 10px;
+    }
+    /* в форме регистрации submit и reset стоят рядом — разносим по вертикали */
+    form .tap + .tap2,
+    form .tap2{
+        margin-top: 8px;
+    }
+
+    /* --- Поля ввода на всю ширину --- */
+    .write{
+        max-width: 100%;
+        height: 42px;
+        font-size: 16px;
+    }
+    textarea{
+        max-width: 100%;
+        font-size: 16px;
+    }
+
+    /* --- Радио/чекбоксы крупнее --- */
+    input[type="radio"],
+    input[type="checkbox"]{
+        width: 24px;
+        height: 24px;
+        margin: 8px 8px 8px 0;
+    }
+
+    /* --- Блоки кода --- */
+    .prog{
+        max-width: 100%;
+        font-size: 13px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    /* --- hr компактнее --- */
+    hr{ margin: 10px 0; }
+
+    /* --- Подвал --- */
+    .podval{
+        text-align: center;
+        border-radius: 10px;
+        padding: 14px 12px;
+    }
+}
+
+/* ---------- Очень узкие экраны (iPhone SE, Galaxy Fold…) ---------- */
+@media (max-width: 360px){
+    body{ font-size: 13px; }
+
+    .link{ font-size: 15px; padding: 11px 6px; }
+
+    .tap,
+    .tap2{ height: 42px; font-size: 15px; }
+
+    .prog{ font-size: 12px; }
+
+    h1#Home{ font-size: 1.25rem; }
+}
